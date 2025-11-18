@@ -2,18 +2,14 @@ import React, { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { toast } from "react-toastify";
-import { setToken } from "../../services/Firebase/cookie";
+import { setToken } from "../../../auth/userCookies";
+import { auth } from "../../../auth/firebaseConfig";
+import { useRouter } from "next/navigation";
 
-const firebaseConfig = {
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  };
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 
 export default function SignupStep1({ nextStep, formData, setFormData }) {
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleContinue = async () => {
     const { email, password, confirmPassword } = formData;
@@ -27,8 +23,10 @@ export default function SignupStep1({ nextStep, formData, setFormData }) {
     }
 
     try {
+     
       setLoading(true);
       const userCred = await createUserWithEmailAndPassword(auth, email, password);
+  
       const token = await userCred.user.accessToken;
       setToken(token);
       nextStep();
@@ -53,32 +51,39 @@ export default function SignupStep1({ nextStep, formData, setFormData }) {
   };
 
   return (
-    <div className="text-black">
-      <h2 className="text-xl font-semibold mb-2">Create Account</h2>
-      <p className="text-sm text-gray-500 mb-6">Let’s create your account and get started!</p>
-
+    <div className="w-full max-w-md ">
+        <h1 className="text-3xl font-semibold text-[#1E1E1E] mb-1">Create Account</h1>
+        <p className="text-sm text-gray-500 mb-8">Let’s create your account and get started!</p>
+        <div className="mb-4">
+             <label className="text-sm text-gray-700">Email</label>
       <input
         type="email"
         placeholder="Enter Email"
-        className="w-full border p-2 rounded mb-3"
+                     className="w-full border border-gray-200 rounded-xl px-4 py-2 mt-1 outline-none border-[#E1E1E1] bg-[#FAFAFA]"
         value={formData.email}
         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
       />
+           </div>
+
+           <div className="mb-4">
+           <label className="text-sm text-gray-700">Password</label>
       <input
         type="password"
         placeholder="Enter Password"
-        className="w-full border p-2 rounded mb-3"
+                    className="border-[#E1E1E1] bg-[#FAFAFA] w-full border rounded-xl px-4 py-2 mt-1 pr-10 outline-none"
         value={formData.password}
         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
       />
+      </div>
+      <div className="mb-4">
+      <label className="text-sm text-gray-700">Password</label>
       <input
         type="password"
         placeholder="Re-enter Password"
-        className="w-full border p-2 rounded mb-4"
+                       className="border-[#E1E1E1] bg-[#FAFAFA] w-full border rounded-xl px-4 py-2 mt-1 pr-10 outline-none"
         value={formData.confirmPassword}
         onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-      />
-
+      /></div>
       <button
         onClick={handleContinue}
         disabled={loading}
@@ -86,6 +91,24 @@ export default function SignupStep1({ nextStep, formData, setFormData }) {
       >
         {loading ? "Creating..." : "Create Account"}
       </button>
+      <p className="mt-6 text-center text-sm">
+      By continuing, you agree to Genie Organizer's{" "}
+              <span
+                className="text-[#5B4EEC] cursor-pointer"
+                onClick={() => router.push("/signup")}
+              >
+           Terms & Conditions and Privacy Policy
+              </span>
+            </p>
+            <p className="mt-6 text-center text-sm">
+            Already have an account?{" "}
+              <span
+                className="text-[#5B4EEC] cursor-pointer"
+                onClick={() => router.push("/")}
+              >
+          Log In
+              </span>
+            </p>
     </div>
   );
 }

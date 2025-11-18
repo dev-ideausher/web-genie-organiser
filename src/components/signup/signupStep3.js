@@ -1,25 +1,39 @@
 import React, { useRef } from "react";
-import { loginApi } from "../../services/APIs/Login";
-
+import { registerApi} from  "./../../services/APIs/Login"
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 export default function SignupStep3({ prevStep, formData, setFormData }) {
   const fileRef = useRef(null);
-
+  const router = useRouter();
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setFormData({ ...formData, profilePic: URL.createObjectURL(file) });
     }
   };
-  const handleRegister=async()=>
-    {
-        console.log(formData)
-  const res=await loginApi(formData);
-    }
+  const handleRegister = async () => {
+    console.log("RAW FORM DATA:", formData);
+  
+    // REMOVE password fields before sending
+    const payload = { ...formData };
+    delete payload.password;
+    delete payload.confirmPassword;
+    delete payload.referral;  delete payload.profilePic;
+    console.log("FINAL PAYLOAD SENT:", payload);
+  
+    const res = await registerApi(payload);
+    if(res?.status)
+      {
+       toast.success("User registered successfully! ")
+        setTimeout(()=>router.push("/"),2500)}
+      }
+  ;
+  
 
   return (
-    <div>
-      <h2 className="text-xl font-semibold mb-2">Profile Picture</h2>
-      <p className="text-sm text-gray-500 mb-6">
+    <div className="w-full max-w-md ">
+      <h2 className="text-3xl font-semibold text-[#1E1E1E] mb-1">Profile Picture</h2>
+      <p className="text-sm text-gray-500 mb-8">
         Showcase your best self. Upload your profile picture now!
       </p>
 

@@ -8,7 +8,7 @@ import useFirebaseAuth from "../../../auth/useFirebaseAuth";
 import { toast } from "react-toastify";
 import { LoginApi } from "./../../services/APIs/Login";
 
-export default function Login() {
+export default function forgotPassword() {
   const { forgotPassword, loginWithEmailAndPassword, userLogin, setToken, setUser } =
     useFirebaseAuth();
 
@@ -74,7 +74,7 @@ export default function Login() {
     }
   };
 
-
+  // ✨ Alternate login (if needed)
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -134,14 +134,14 @@ export default function Login() {
       </div>
 
       {/* RIGHT SECTION */}
-      <div className="flex justify-center items-center bg-white px-8 sm:m-6 rounded-[32px] ">
+      <div className="flex justify-center  bg-white px-8 sm:m-6 rounded-[32px] ">
         <div className="w-full max-w-md">
 
-          <h1 className="text-3xl font-semibold text-[#1E1E1E] mb-1">
-            Hello, Welcome Back
+          <h1 className="text-3xl font-semibold text-[#1E1E1E] mb-1 mt-20">
+          Forgot Password
           </h1>
-          <p className="text-sm text-gray-500 mb-8">
-            Login to your account below
+          <p className="text-[16px] text-gray-500 mb-8">
+          Enter the email address for password reset instructions. If you have an account, you will receive an email with next steps
           </p>
 
           {/* FORM */}
@@ -159,79 +159,27 @@ export default function Login() {
               />
             </div>
 
-            <div className="mb-2">
-              <label className="text-sm text-gray-700">Password</label>
-
-              <div className="relative">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Enter Password"
-                  value={fields.password}
-                  onChange={passwordHandler}
-                  disabled={loading}
-                  required
-                  className="border-[#E1E1E1] bg-[#FAFAFA] w-full border rounded-xl px-4 py-2 mt-1 pr-10 outline-none"
-                />
-
-                <button
-                  type="button"
-                  onClick={togglePasswordVisibility}
-                  className="absolute inset-y-0 right-3 flex items-center text-gray-600"
-                >
-                  {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
-                </button>
-              </div>
-            </div>
-
-            <p
-              className="text-right text-sm text-[#5B4EEC] cursor-pointer mb-5"
-              onClick={() => router.push("/forgot-password")}
-            >
-              Forgot Password?
-            </p>
+          
 
             <button
               type="submit"
               disabled={loading}
-              className={`w-full bg-[#5B4EEC] text-white py-3 rounded-xl font-medium transition ${
+              className={`w-full bg-[#5B4EEC] text-white py-3 rounded-xl font-medium transition my-6 ${
                 loading ? "opacity-50 cursor-not-allowed" : "hover:bg-[#4C3FDB]"
               }`}
             >
-              {loading ? "Processing..." : "Log In"}
+              {loading ? "Processing..." : "Continue"}
             </button>
 
-            {/* Divider */}
-            <div className="flex items-center my-6">
-              <span className="flex-grow border-b border-[#E1E1E1]" />
-              <span className="mx-3 text-gray-500">or</span>
-              <span className="flex-grow border-b border-[#E1E1E1]" />
-            </div>
-
-            {/* Google Login */}
-            <button
-              type="button"
-              className="w-full border border-[#E1E1E1] py-3 rounded-xl flex items-center justify-center gap-3 mb-3"
-            >
-              <Image src="/svg/google.svg" alt="Google" width={20} height={20} />
-              Continue with Gmail
-            </button>
-
-            {/* Apple Login */}
-            <button
-              type="button"
-              className="w-full border border-[#E1E1E1] py-3 rounded-xl flex items-center justify-center gap-3"
-            >
-              <Image src="/svg/apple.svg" alt="Apple" width={20} height={20} />
-              Continue with Apple
-            </button>
+     
 
             <p className="mt-6 text-center text-sm">
-              Don’t have an account?{" "}
+            
               <span
                 className="text-[#5B4EEC] cursor-pointer"
                 onClick={() => router.push("/signup")}
               >
-                Sign Up
+     Go Back To Sign In
               </span>
             </p>
           </form>

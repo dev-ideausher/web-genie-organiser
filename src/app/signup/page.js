@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import SignupStep1 from "../../components/signup/signupStep1";
 import SignupStep2 from "../../components/signup/signupStep2";
 import SignupStep3 from "../../components/signup/signupStep3";
+import Image from "next/image";
 
 export default function SignupPage() {
   const [step, setStep] = useState(1);
@@ -21,22 +22,37 @@ export default function SignupPage() {
   const prevStep = () => setStep((p) => p - 1);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#f5f6ff] px-6">
-      <div className="flex flex-col md:flex-row bg-white rounded-3xl shadow-lg w-full max-w-5xl overflow-hidden">
-        {/* Left Section */}
-        <div className="w-full md:w-1/2 bg-[#f6f4ff] flex flex-col items-center justify-center text-center p-10">
-          <img src="/genie-logo.png" alt="logo" className="w-24 mb-6" />
-          <h2 className="text-lg font-medium text-[#5b5fc7] mb-2 ">
-            Organize your life
-          </h2>
-          <p className="text-[#5b5fc7] text-sm">
-            Journal, tasks, calendar and more!
-          </p>
-          <img src="/signup-side-illustration.png" alt="illustration" className="mt-6 w-72" />
+    <div className="w-full h-screen grid grid-cols-1 md:grid-cols-2 font-poppins bg-[#ECF3FF]">
+
+     {/* LEFT SECTION */}
+     <div className="hidden md:flex flex-col justify-center px-12 bg-[#ECF3FF]">
+        <Image
+          src="/images/logo.png"
+          alt="Genie Logo"
+          width={138}
+          height={100}
+          className="mb-6"
+        />
+
+        <h1 className="mt-12 text-4xl font-semibold text-[#5B4EEC] leading-snug">
+          Organize your life
+        </h1>
+        <p className="text-2xl text-[#5B4EEC] mt-2">
+          journal, tasks, calendar and more!
+        </p>
+
+        <div className="mt-10">
+          <Image
+            src="/images/login.png"
+            alt="Illustration"
+            width={700}
+            height={380}
+          />
         </div>
+      </div>
 
         {/* Right Section */}
-        <div className="w-full md:w-1/2 p-8">
+        <div className="flex justify-center items-center bg-white px-8 sm:m-6 rounded-[32px]">
           {step === 1 && (
             <SignupStep1
               nextStep={nextStep}
@@ -60,7 +76,7 @@ export default function SignupPage() {
             />
           )}
         </div>
-      </div>
+      
     </div>
   );
 }

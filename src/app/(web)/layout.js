@@ -1,43 +1,109 @@
-// layout.js
+"use client"
 
+import { useState, useRef, useEffect } from "react";
+
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import useFirebaseAuth from "./../../../auth/useFirebaseAuth"
+import { toast } from "react-toastify";
+import Sidebar from "../../components/Sidebar";
 
 export default function Layout({ children }) {
+  const { logOut } = useFirebaseAuth();
+  const router = useRouter();
+
+
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const toggleSidebar = () => setSidebarOpen((v) => !v);
+
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const toggleDropdown = () => setIsDropdownOpen((o) => !o);
+
+  const handleLogout = () => {
+    setIsDropdownOpen(false);
+    logOut()
+      .then(() => {
+        toast.success("Logging out..");
+        router.push("/");
+      })
+      .catch((error) => console.log(error));
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const pageTitles = {
+    "/dashboard":   "Home",
+    "/user-management":   "Tasks",
+    "/adviser-management":   "Calendar",
+    "/booking-management":   "Journal",
+    "/fees-and-subscriptions":"Videos & Audios",
+    "/revenue-management":  "Gratitude",
+    "/notification-management":   "Vision board",
+    "/analytics-and-reports":  "Ask Genie",
+    "/help-and-support":  "Horoscope",
+    "/profile":  "Profile",
+  };
+
   return (
-  <div className="flex min-h-screen bg-[#f6f7fb]">
-  {/* Sidebar */}
-  <aside className="w-64 bg-white shadow-xl p-6 flex flex-col gap-4">
-  <h1 className="text-2xl font-semibold text-[#4a4bda]">Genie AI</h1>
-  <nav className="flex flex-col gap-2 mt-4">
-  {[
-  "Home",
-  "Tasks",
-  "Calendar",
-  "Journal",
-  "Videos & Audios",
-  "Gratitude",
-  "Vision board",
-  "Ask Genie",
-  "Horoscope",
-  "Profile",
-  ].map((item) => (
+    <div className="flex h-screen overflow-hidden text-black">
+      {/* Sidebar wrapper */}
+      <div
+        className={`
+          fixed inset-y-0 left-0 z-30 w-60 text-black
+          transform transition-transform duration-300 ease-in-out
+
+          /* mobile: slide off/on */
+          ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
+
+          /* md+: always on-screen */
+          md:translate-x-0 md:static md:shadow-none
+        `}
+      >
+        <Sidebar toggleSidebar={toggleSidebar} />
+      </div>
+
+      {/* Backdrop for mobile (click to close) */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-20 bg-black opacity-50 md:hidden"
+          onClick={toggleSidebar}
+        />
+      )}
+
+      {/* Main content */}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        {/* Navbar */}
+
+{/* NAVBAR */}
+<header className="md:hidden flex items-center gap-4 p-4 bg-white shadow-md">
+  {/* Hamburger for mobile */}
   <button
-  key={item}
-  className="text-left px-4 py-2 rounded-lg hover:bg-[#eef0ff] transition"
+    onClick={toggleSidebar}
+    className="md:hidden text-black"
   >
-  {item}
+    <svg width="28" height="28" fill="none">
+      <path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" strokeWidth="2" />
+    </svg>
   </button>
-  ))}
-  </nav>
-  
-  
-  <button className="mt-auto px-4 py-2 text-white bg-red-500 rounded-lg">Logout</button>
-  </aside>
-  
-  
-  {/* Main Content */}
-  <main className="flex-1 p-6 overflow-auto">{children}</main>
-  </div>
+
+  <h1 className="text-lg font-semibold"></h1>
+</header>
+
+        {/* Page content */}
+        <main className="flex-1 overflow-y-auto bg-white text-black">
+          {children}
+        </main>
+      </div>
+    </div>
   );
-  }
-  
-  
+}

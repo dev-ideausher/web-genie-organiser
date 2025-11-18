@@ -1,15 +1,14 @@
-import { apiError,getAuthToken,responseValidator,url } from "../../helper/helper";
-import { getToken } from "../Firebase/cookie";
-export const registerApi = async (email, password) => {
+import { getToken } from "@/auth/userCookies";
+import { apiError,getAuthToken,responseValidator} from "./../../helper/helper"
+import { urlToHttpOptions } from "url";
+const URL = process.env.NEXT_PUBLIC_BASE_URL;
+export const registerApi = async (data) => {
   const myHeaders = new Headers();
   const token = await getAuthToken(); 
   myHeaders.append("Content-Type", "application/json");
-  myHeaders.append("Authorization", token);
+  myHeaders.append("Authorization", `Bearer ${token}`);
   //myHeaders.append("ngrok-skip-browser-warning", "true");
-  const raw = JSON.stringify({
-    email: email,
-    password: password,
-  });
+  const raw = JSON.stringify(data);
 
   const requestOptions = {
     method: "POST",
@@ -18,23 +17,23 @@ export const registerApi = async (email, password) => {
     redirect: "follow",
   };
   try {
-    console.log(url,getToken())
-    const response = await fetch(url + `/auth/register`, requestOptions);
+   
+    const response = await fetch(URL + `/auth/register`, requestOptions);
 
     return response.json();
   } catch (error) {
     apiError(error);
   }
 };
-export const loginApi = async (email, password) => {
+export const LoginApi = async () => {
   const myHeaders = new Headers();
   const token = await getAuthToken(); 
+ // console.log(token)
   myHeaders.append("Content-Type", "application/json");
-  myHeaders.append("Authorization", token);
+  myHeaders.append("Authorization", `Bearer ${token}`);
+
 
   const raw = JSON.stringify({
-    email: email,
-    password: password,
   });
 
   const requestOptions = {
@@ -44,8 +43,8 @@ export const loginApi = async (email, password) => {
     redirect: "follow",
   };
   try {
-    console.log(url,getToken())
-    const response = await fetch(url + `/auth/login`, requestOptions);
+  
+    const response = await fetch(URL + `/auth/login`, requestOptions);
 
     return response.json();
   } catch (error) {
