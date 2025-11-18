@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 export default function Sidebar({ toggleSidebar }) {
-  const pathname = usePathname(); // ← CORRECT
+  const pathname = usePathname(); 
   const currentPath = pathname || "";
 
   const menuItems = [
