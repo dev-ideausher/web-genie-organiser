@@ -20,6 +20,12 @@ const zodiacSigns = [
   
 export default function HoroscopePage() {
     const router = useRouter();
+
+
+    const handleNavigation = (signId, gender) => {
+        router.push(`/horoscope/${signId}?gender=${gender}`);
+    };
+
   return (
     <div className="p-6">
       <h1 className="text-3xl font-semibold mb-8">Horoscope</h1>
@@ -28,9 +34,10 @@ export default function HoroscopePage() {
         {zodiacSigns.map((sign) => (
           <div
             key={sign.name}
+
             onClick={() => {
-console.log(sign.id)
-router.push(`/horoscope/${sign.id}`)
+                console.log(sign.id)
+              //  router.push(`/horoscope/${sign.id}`) // Default click action
             }}
            
             className="bg-white rounded-2xl shadow-md p-6 flex flex-col items-center text-center"
@@ -51,10 +58,22 @@ router.push(`/horoscope/${sign.id}`)
 
             {/* Buttons */}
             <div className="flex gap-3 ">
-              <button className="border border-[#4a4bda] text-[#4a4bda] px-4 py-1 rounded-lg hover:bg-[#4a4bda] hover:text-white transition">
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation(); 
+                  handleNavigation(sign.id, 'male');
+                }}
+                className="border border-[#4a4bda] text-[#4a4bda] px-4 py-1 rounded-lg hover:bg-[#4a4bda] hover:text-white transition"
+              >
                 Male
               </button>
-              <button className="border border-[#4a4bda] text-[#4a4bda] px-4 py-1 rounded-lg hover:bg-[#4a4bda] hover:text-white transition">
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation(); 
+                  handleNavigation(sign.id, 'female');
+                }}
+                className="border border-[#4a4bda] text-[#4a4bda] px-4 py-1 rounded-lg hover:bg-[#4a4bda] hover:text-white transition"
+              >
                 Female
               </button>
             </div>
