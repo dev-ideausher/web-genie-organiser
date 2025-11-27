@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { toast } from "react-toastify";
-import { setToken } from "../../../auth/userCookies";
-import { auth } from "../../../auth/firebaseConfig";
+import { setToken } from "../../services/auth/userCookies";
+import { auth } from "../../services/auth/firebaseConfig";
 import { useRouter } from "next/navigation";
 
 

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { EyeOff, Eye } from "lucide-react";
-import useFirebaseAuth from "../../../auth/useFirebaseAuth";
+import useFirebaseAuth from "../../services/auth/useFirebaseAuth";
 import { toast } from "react-toastify";
 import { LoginApi } from "./../../services/APIs/Login";
 
