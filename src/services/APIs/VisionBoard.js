@@ -1,4 +1,4 @@
-import { getToken } from "@/auth/userCookies";
+import { getToken } from "../auth/userCookies";
 import { apiError,getAuthToken,responseValidator} from "./../../helper/helper"
 import { urlToHttpOptions } from "url";
 const URL = process.env.NEXT_PUBLIC_BASE_URL;

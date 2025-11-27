@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import useFirebaseAuth from "./../../../auth/useFirebaseAuth"
+import useFirebaseAuth from "../../services/auth/useFirebaseAuth"
 import { toast } from "react-toastify";
 import Sidebar from "../../components/Sidebar";
 

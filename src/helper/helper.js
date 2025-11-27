@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { auth } from "@/auth/firebaseConfig";
+import { auth } from "../services/auth/firebaseConfig";
 export const responseValidator = async (response , isToaster=false, message=null) => {
     if(response.ok){
         const res = await response.json();

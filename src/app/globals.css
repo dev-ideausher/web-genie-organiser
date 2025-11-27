@@ -9,8 +9,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-primary: #6563FF;
+  --color-primary:#6563FF;
+  --color-secondaryText:#787878;
   --color-darkBlack: #262626;
+  --color-primaryDisabled:#DDE4FF;
 }
 
 

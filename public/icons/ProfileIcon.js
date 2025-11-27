@@ -1,0 +1,25 @@
+
+
+import React from "react";
+
+export function ProfileIcon({className}) {
+  return (
+    <div>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        className={`${className} stroke-current`}
+      >
+        <path strokeWidth="1.83333"
+d="M18.3307 19.25V17.4167C18.3307 16.4442 17.9444 15.5116 17.2568 14.8239C16.5692 14.1363 15.6365 13.75 14.6641 13.75H7.33073C6.35827 13.75 5.42564 14.1363 4.738 14.8239C4.05037 15.5116 3.66406 16.4442 3.66406 17.4167V19.25M14.6641 6.41667C14.6641 8.44171 13.0224 10.0833 10.9974 10.0833C8.97235 10.0833 7.33073 8.44171 7.33073 6.41667C7.33073 4.39162 8.97235 2.75 10.9974 2.75C13.0224 2.75 14.6641 4.39162 14.6641 6.41667Z"/>   </svg>
+    </div>
+  );
+}
+
+
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+  <path  stroke="#787878" strokeWidth="1.83333" strokeLinecap="round" strokeLinejoin="round"/>
+</svg>

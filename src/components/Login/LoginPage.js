@@ -4,12 +4,13 @@ import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { EyeOff, Eye } from "lucide-react";
-import useFirebaseAuth from "../../../auth/useFirebaseAuth";
+import useFirebaseAuth from "../../services/auth/useFirebaseAuth";
 import { toast } from "react-toastify";
 import { LoginApi } from "./../../services/APIs/Login";
+import { setToken, setUser } from "@/src/services/auth/userCookies";
 
 export default function Login() {
-  const { forgotPassword, loginWithEmailAndPassword, userLogin, setToken, setUser } =
+  const { forgotPassword, loginWithEmailAndPassword, userLogin } =
     useFirebaseAuth();
 
   const router = useRouter();
@@ -33,22 +34,29 @@ export default function Login() {
     setFields((prev) => ({ ...prev, email: e.target.value }));
   };
 
-  // ✨ Firebase / Custom Login API
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+try{
+  let userAuthData = await loginWithEmailAndPassword(fields.email, fields.password)
 
-    try {
-      let response = await LoginApi();
+  if (userAuthData?.status) {
+      let userData = await LoginApi(userAuthData.token)
 
-      if (!response.status) {
-        toast.error(response.error || "Login failed");
-        return;
+      if (userData.status) {
+          setToken(userAuthData.token, userAuthData.expiryTime)
+          setUser(userData.data)
+          toast.success("Login successful!");
+      router.push("/dashboard");
+      }
+      else{
+        toast.error( "Login failed");
       }
 
-      toast.success("Login successful!");
-      router.push("/dashboard");
-    } catch (error) {
+  }
+}
+     catch (error) {
       if (error.code) {
         switch (error.code) {
           case "auth/invalid-credential":
@@ -75,33 +83,7 @@ export default function Login() {
   };
 
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setLoading(true);
 
-    try {
-      let userAuthData = await loginWithEmailAndPassword(
-        fields.email,
-        fields.password
-      );
-
-      if (userAuthData?.status) {
-        let userData = await userLogin(userAuthData.token);
-
-        if (userData.status) {
-          setToken(userAuthData.token, userAuthData.expiryTime);
-          setUser(userData.data);
-
-          toast.success("Login successful");
-          router.push("/user-management");
-        }
-      }
-    } catch (err) {
-      toast.error(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="w-full h-screen grid grid-cols-1 md:grid-cols-2 font-poppins bg-[#ECF3FF]">

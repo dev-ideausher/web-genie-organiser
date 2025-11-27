@@ -22,8 +22,6 @@ export default function HoroscopeDetailPage() {
   const [loading, setLoading] = useState(true);
 
 
-  const getLifeImpactKey = (g) => (g === 'male' ? 'man' : 'woman'); // Assuming 'woman' is the key if not 'man'
-
 
   useEffect(() => {
     if (!id || !gender) {
