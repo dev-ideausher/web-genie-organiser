@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { Suspense } from 'react'
+import JournalPage from '../../../components/Journal/JournalPage'
 
 const page = () => {
   return (
-    <div>page</div>
+<Suspense fallback={<div>Loading...</div>}>
+      <JournalPage />
+    </Suspense>
   )
 }
 

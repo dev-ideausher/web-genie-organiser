@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { Suspense } from 'react'
+
+import AVpage from '../../../components/Audios-videos/AVpage'
 
 const page = () => {
   return (
-    <div>page</div>
+<Suspense fallback={<div>Loading...</div>}>
+      <AVpage/>
+    </Suspense>
   )
 }
 
