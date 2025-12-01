@@ -13,6 +13,7 @@
   --color-secondaryText:#787878;
   --color-darkBlack: #262626;
   --color-primaryDisabled:#DDE4FF;
+  --color-gradient: linear-gradient(180deg, #6563FF 0%, #5451DD 100%);
 }
 
 
@@ -20,4 +21,12 @@
 body {
   background: var(--background);
   color: var(--foreground);
+}
+@keyframes scaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.2s ease-out;
 }
