@@ -16,7 +16,7 @@ import {
     EmailAuthProvider
 } from "firebase/auth";
 import { auth, GoogleAuthProvider} from "./firebaseConfig"
-import { removeToken } from "./userCookies";
+import { removeToken, removeUser } from "./userCookies";
 import { firebaseErrorFinder } from "./firebaseErrors";
 import { toast } from 'react-toastify';
 import { useRouter } from "next/navigation";
@@ -114,7 +114,7 @@ export default function useFirebaseAuth(){
         try{
             const res = await signOut(auth);
             removeToken();
-         //   removeUser();
+          removeUser();
             return {status: true};
         }
         catch(e){

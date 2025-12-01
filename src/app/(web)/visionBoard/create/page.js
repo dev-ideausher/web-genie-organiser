@@ -27,13 +27,13 @@ export default function CreateVisionBoard() {
       </button>
 
       {/* Upload Box */}
-      <div className="border border-dashed rounded-2xl h-56 flex flex-col items-center justify-center text-gray-500 mb-6">
+      <div className="border border-dashed rounded-2xl h-56 flex flex-col items-center justify-center text-gray-500 mb-6 w-4/5">
         <span className="text-4xl"></span>
         <p>Upload Pics</p>
       </div>
 
       {/* Goals Card */}
-      <div className="bg-white shadow-md rounded-2xl p-6">
+      <div className="bg-white shadow-md rounded-2xl p-6 w-4/5">
         <h2 className="font-semibold text-lg">Your goals</h2>
         <p className="text-sm text-gray-500 mb-4">
           Once created, you can go to progress tracker to mark your goals complete

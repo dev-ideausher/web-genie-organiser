@@ -17,8 +17,9 @@ export default function CalendarPage() {
           right: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
         events={[
-          { title: "Get Honey", date: "2025-09-17T09:00:00" },
-          { title: "Grab Eggs", date: "2025-09-17T09:30:00" },
+          { title: "Get Honey", date: "2025-12-17T09:00:00" },
+          { title: "Grab Eggs", date: "2025-12-17T09:30:00" },
+          { title: "Office", date: "2025-12-17T11:30:00" },
         ]}
         height="85vh"
       />

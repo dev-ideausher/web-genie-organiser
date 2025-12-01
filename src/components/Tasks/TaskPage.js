@@ -21,10 +21,10 @@ export default function TasksPage() {
 
       {/* Toggle Tabs */}
       <div className="flex items-center justify-center mb-6">
-        <div className="bg-gray-100 p-1 rounded-full flex gap-1">
+        <div className="bg-gray-100 p-1 rounded-[16px] flex gap-1">
           <button
             onClick={() => handleTabSwitch("tasks")}
-            className={`px-6 py-2 rounded-full transition ${
+            className={`px-6 py-2 rounded-[12px] transition ${
               currentTab === "tasks"
                 ? "bg-white shadow font-medium"
                 : "text-gray-500"
@@ -35,7 +35,7 @@ export default function TasksPage() {
 
           <button
             onClick={() => handleTabSwitch("activities")}
-            className={`px-6 py-2 rounded-full transition ${
+            className={`px-6 py-2 rounded-[12px] transition ${
               currentTab === "activities"
                 ? "bg-white shadow font-medium"
                 : "text-gray-500"
