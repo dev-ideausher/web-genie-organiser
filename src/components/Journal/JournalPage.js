@@ -20,7 +20,7 @@ export default function JournalPage() {
     };
 
   return (
-    <div className="min-h-screen bg-[#fafafa] p-8 font-sans w-full">
+    <div className="min-h-screen  p-8 w-full">
 
       {/* Tabs */}
       <div className="flex justify-center mb-6">

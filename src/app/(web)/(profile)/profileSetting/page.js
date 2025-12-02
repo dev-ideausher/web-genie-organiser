@@ -6,7 +6,7 @@ export default function AccountPage() {
   return (
     <div className=" w-full  bg-[#FCFDFF] text-black">
       <Header title="Profile Setting" />
-    <div className="w-full  bg-[#fafafa] p-6 flex">
+    <div className="w-full p-6 flex">
       
   
    

@@ -7,7 +7,7 @@ export default function PaymentMethods() {
   const [openModal, setOpenModal] = useState(false);
 
   return (
-    <div className=" w-full min-h-screen bg-[#FCFDFF] text-black">
+    <div className=" w-full min-h-screen  text-black">
       <Header title="Payment Method" />
     <div className="p-6">
       <h1 className="text-xl font-semibold">Payment Methods</h1>

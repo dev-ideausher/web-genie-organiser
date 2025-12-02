@@ -57,9 +57,9 @@ export default function ChatPage() {
   };
 
   return (
-    <div className=" w-full min-h-screen bg-[#FCFDFF] text-black">
+    <div className=" w-full min-h-screen  text-black">
       <Header title="Support Chat" />
-    <div className="w-full h-screen bg-[#f7f8fa] p-6 flex justify-center">
+    <div className="w-full h-screen  p-6 flex justify-center">
       <div className="bg-white rounded-3xl shadow-lg w-full max-w-4xl h-full flex flex-col overflow-hidden">
         {/* Top Header */}
         <div className="bg-[#e9f0ff] px-6 py-4 flex justify-between items-center">

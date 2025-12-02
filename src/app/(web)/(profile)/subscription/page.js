@@ -19,9 +19,9 @@ export default function SubscriptionPage() {
   ];
 
   return (
-    <div className=" w-full min-h-screen bg-[#FCFDFF] text-black">
+    <div className=" w-full min-h-screen  text-black">
       <Header title="Subscription" />
-    <div className="p-6 w-full min-h-screen bg-[#f7f8fa] text-black">
+    <div className="p-6 w-full min-h-screen text-black">
       <h1 className="text-3xl font-semibold">Current Subscription</h1>
       <p className="text-gray-600 mb-6">Manage your subscription plan</p>
 

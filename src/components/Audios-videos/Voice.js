@@ -10,7 +10,7 @@ export default function Voice() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#f7f8fc] p-10 font-sans">
+    <div className="min-h-screen bg-[#f7f8fc] p-10 ">
   
       <div className="flex justify-between items-start">
         <div>

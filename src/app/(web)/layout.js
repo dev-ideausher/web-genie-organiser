@@ -100,7 +100,7 @@ export default function Layout({ children }) {
 </header>
 
         {/* Page content */}
-        <main className="flex-1 overflow-y-auto bg-white text-black">
+        <main className="flex-1 overflow-y-auto bg-bg text-black">
           {children}
         </main>
       </div>

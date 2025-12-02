@@ -63,7 +63,7 @@ export default function HoroscopePage() {
                   e.stopPropagation(); 
                   handleNavigation(sign.id, 'male');
                 }}
-                className="border border-[#4a4bda] text-[#4a4bda] px-4 py-1 rounded-lg hover:bg-[#4a4bda] hover:text-white transition"
+                className="bg-lightPurple border border-[#4a4bda] text-[#4a4bda] px-4 py-1 rounded-lg hover:bg-[#4a4bda] hover:text-white transition"
               >
                 Male
               </button>
@@ -72,7 +72,7 @@ export default function HoroscopePage() {
                   e.stopPropagation(); 
                   handleNavigation(sign.id, 'female');
                 }}
-                className="border border-[#4a4bda] text-[#4a4bda] px-4 py-1 rounded-lg hover:bg-[#4a4bda] hover:text-white transition"
+                className="bg-lightPurple border border-[#4a4bda] text-[#4a4bda] px-4 py-1 rounded-lg hover:bg-[#4a4bda] hover:text-white transition"
               >
                 Female
               </button>

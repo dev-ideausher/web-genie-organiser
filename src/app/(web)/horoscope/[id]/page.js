@@ -4,6 +4,8 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { horoscopeApi } from "../../../../services/APIs/Horoscope";
 import { useState, useEffect } from "react";
+import DailyHoroscope from "../../../../../public/icons/DailyHoroscope";
+import LifeImpact from "../../../../../public/icons/LifeImpact";
 
 
 const initialHoroscopeData = {
@@ -102,7 +104,7 @@ if (loading) {
       </button>
 
       {/* Header */}
-      <div className="flex items-center gap-4 bg-white shadow rounded-2xl p-6 mb-6">
+      <div className="flex items-center gap-4 bg-white shadow rounded-[24px] p-6 mb-6">
         <Image 
           src={`/signs/${id}.png`}
           alt={`${id} zodiac sign`} 
@@ -113,18 +115,18 @@ if (loading) {
 
         <div>
           <h2 className="text-2xl font-bold capitalize">
-            {id} Horoscope 
+          {gender} {id} Horoscope 
           </h2>
           <p className="text-lg capitalize text-gray-600">
-            {gender} | Lucky Number: **{horoscopeData.lucky_number ?? 'N/A'}**
+      Lucky Number: **{horoscopeData.lucky_number ?? 'N/A'}**
           </p>
         </div>
       </div>
 
       {/* Daily Horoscope */}
-      <div className="bg-white rounded-2xl shadow p-6 mb-6">
-        <h3 className="text-xl font-semibold mb-3 text-[#4a4bda]"> 
-            Daily Horoscope 
+      <div className=" rounded-[16px] shadow p-6 mb-6 bg-primaryBg">
+        <h3 className="text-[20px] font-semibold mb-3 text-primaryText flex items-center gap-2"> 
+           <DailyHoroscope/> Daily Horoscope 
         </h3>
         <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
           {horoscopeData.horoscope}
@@ -132,9 +134,9 @@ if (loading) {
       </div>
 
       {/* Life Impact */}
-      <div className="bg-white rounded-2xl shadow p-6">
-        <h3 className="text-xl font-semibold mb-3 text-[#4a4bda] capitalize"> 
-            {id} {gender} Personality
+      <div className="bg-primaryBg rounded-[16px] shadow p-6">
+        <h3 className="text-[20px] font-semibold mb-3 text-primaryText capitalize flex items-center gap-2"> 
+       <LifeImpact/>     {id} {gender} Personality
         </h3>
         <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
           {horoscopeData.life_impact_text}

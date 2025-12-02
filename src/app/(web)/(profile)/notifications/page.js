@@ -10,7 +10,7 @@ export default function NotificationsPage() {
   const [email, setEmail] = useState(false);
 
   return (
-    <div className=" w-full min-h-screen bg-[#FCFDFF] text-black">
+    <div className=" w-full min-h-screen  text-black">
       <Header title="Notifications" />
     <div className="p-6 w-full min-h-screen bg-[#f7f8fa] text-black">
       <h1 className="text-3xl font-semibold mb-2">Notifications</h1>

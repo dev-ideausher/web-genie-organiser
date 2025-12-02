@@ -13,7 +13,12 @@
   --color-secondaryText:#787878;
   --color-darkBlack: #262626;
   --color-primaryDisabled:#DDE4FF;
+  --color-primaryText:#222;
+  --color-primaryBg: #ECF3FF;
+  --color-lightPurple:#F5F6FF;
   --color-gradient: linear-gradient(180deg, #6563FF 0%, #5451DD 100%);
+  --color-bg:#FCFDFF;
+  --color-inputBox:#FAFAFA;
 }
 
 

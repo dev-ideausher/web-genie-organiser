@@ -23,7 +23,7 @@ export default function GratitudePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8f9ff] p-6 font-sans">
+    <div className="min-h-screen  p-6 ">
 
     {/* Tabs */}
     <div className="flex justify-center mb-6">

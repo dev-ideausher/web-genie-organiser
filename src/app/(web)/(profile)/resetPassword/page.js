@@ -4,9 +4,9 @@ import { Header } from "../../../../components/Header";
 
 export default function ChangePassword() {
   return (
-    <div className=" w-full  bg-[#FCFDFF] text-black">
+    <div className=" w-full   text-black">
       <Header title="Reset Password" />
-    <div className="w-full bg-[#fafafa] p-6 flex">
+    <div className="w-full  p-6 flex">
       
    
 
