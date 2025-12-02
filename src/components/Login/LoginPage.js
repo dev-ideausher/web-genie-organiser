@@ -98,10 +98,10 @@ try{
           className="mb-6"
         />
 
-        <h1 className="mt-12 text-4xl font-semibold text-[#5B4EEC] leading-snug">
+<p className="mt-12 text-[40px]  font-[600] text-[#7B6BDB] leading-[130%] tracking-[-1px]">
           Organize your life
-        </h1>
-        <p className="text-2xl text-[#5B4EEC] mt-2">
+    
+<br/>
           journal, tasks, calendar and more!
         </p>
 
@@ -166,7 +166,7 @@ try{
             </div>
 
             <p
-              className="text-right text-sm text-[#5B4EEC] cursor-pointer mb-5"
+              className=" text-sm text-[#5B4EEC] cursor-pointer mb-5"
               onClick={() => router.push("/forgot-password")}
             >
               Forgot Password?
