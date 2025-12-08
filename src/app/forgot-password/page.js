@@ -177,9 +177,9 @@ export default function forgotPassword() {
             
               <span
                 className="text-[#5B4EEC] cursor-pointer"
-                onClick={() => router.push("/signup")}
+                onClick={() => router.push("/")}
               >
-     Go Back To Sign In
+     Go Back To Log In
               </span>
             </p>
           </form>

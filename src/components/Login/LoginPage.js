@@ -1,18 +1,52 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { EyeOff, Eye } from "lucide-react";
 import useFirebaseAuth from "../../services/auth/useFirebaseAuth";
 import { toast } from "react-toastify";
 import { LoginApi } from "./../../services/APIs/Login";
-import { setToken, setUser } from "@/src/services/auth/userCookies";
-
+import { setToken, setUser,getToken,getUser } from "@/src/services/auth/userCookies";
+import { googleProvider,appleProvider, auth } from "@/src/services/auth/firebaseConfig";
+import { signInWithPopup } from "firebase/auth";
 export default function Login() {
   const { forgotPassword, loginWithEmailAndPassword, userLogin } =
     useFirebaseAuth();
-
+    const handleGoogleLogin = async () => {
+      try {
+        setLoading(true);
+    
+        const res = await signInWithPopup(auth, googleProvider);
+        const firebaseToken = await res.user.getIdToken();
+        const userData = await LoginApi(firebaseToken);
+    
+        if (userData.status) {
+          setToken(firebaseToken, userData.expiryTime);
+          setUser(userData.data);
+          toast.success("Login successful!");
+          router.push("/dashboard");
+        } else {
+          toast.error(userData.message||"Login failed");
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error("Google login failed");
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+  
+    const handleAppleLogin = async () => {
+      try {
+        const res = await signInWithPopup(auth, appleProvider);
+        console.log("Apple User:", res.user);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    useEffect(()=>console.log(getToken()),[])
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
@@ -191,7 +225,7 @@ try{
 
             {/* Google Login */}
             <button
-              type="button"
+              type="button"    onClick={handleGoogleLogin}
               className="w-full border border-[#E1E1E1] py-3 rounded-xl flex items-center justify-center gap-3 mb-3"
             >
               <Image src="/svg/google.svg" alt="Google" width={20} height={20} />
@@ -200,7 +234,7 @@ try{
 
             {/* Apple Login */}
             <button
-              type="button"
+              type="button"    onClick={handleAppleLogin}
               className="w-full border border-[#E1E1E1] py-3 rounded-xl flex items-center justify-center gap-3"
             >
               <Image src="/svg/apple.svg" alt="Apple" width={20} height={20} />

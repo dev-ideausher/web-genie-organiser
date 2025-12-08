@@ -13,10 +13,12 @@ import {
   Star,
   ChevronRight,
 } from "lucide-react";
+import { useEffect } from "react";
+import { getUser } from "../../../services/auth/userCookies";
 
 export default function ProfilePage() {
   const router = useRouter();
-
+useEffect(()=>console.log(getUser()),[])
   const accountItems = [
     { label: "Profile Setting", icon: <Settings size={20} />, link: "/profileSetting" },
     { label: "Notifications", icon: <Bell size={20} />, link: "/notifications" },
@@ -40,7 +42,7 @@ export default function ProfilePage() {
       {/* Profile Card */}
       <div className="mt-6 bg-white p-5 rounded-2xl shadow-sm flex items-center gap-4 border border-gray-100">
         <Image
-          src="/images/avatar.png"
+          src={getUser()?.profilePic||"/images/avatar.png"}
           width={60}
           height={60}
           className="rounded-full"
@@ -48,8 +50,8 @@ export default function ProfilePage() {
         />
 
         <div>
-          <h2 className="font-semibold text-lg">Alex Simmons</h2>
-          <p className="text-gray-500">Alex2116@gmail.com</p>
+          <h2 className="font-semibold text-lg">{getUser()?.fullName}</h2>
+          <p className="text-gray-500">{getUser()?.email}</p>
         </div>
       </div>
 

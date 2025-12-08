@@ -26,8 +26,13 @@ export default function SignupStep1({ nextStep, formData, setFormData }) {
     try {
       setLoading(true);
       const userCred = await createUserWithEmailAndPassword(auth, email, password);
-      const token = await userCred.user.accessToken;
-      setToken(token);
+
+      const firebaseIdToken = await userCred.user.getIdToken();
+      setFormData({
+        ...formData,
+        firebaseToken: firebaseIdToken,
+      });
+  
       nextStep();
     } catch (err) {
       let errorMessage = "Something went wrong. Please try again.";

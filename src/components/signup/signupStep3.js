@@ -2,6 +2,8 @@ import React, { useRef } from "react";
 import { registerApi} from  "./../../services/APIs/Login"
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { auth } from "../../services/auth/firebaseConfig";
+import { setToken, setUser } from "../../services/auth/userCookies";
 export default function SignupStep3({ prevStep, formData, setFormData }) {
   const fileRef = useRef(null);
   const router = useRouter();
@@ -13,17 +15,20 @@ export default function SignupStep3({ prevStep, formData, setFormData }) {
   };
   const handleRegister = async () => {
     console.log("RAW FORM DATA:", formData);
-  
+ 
     // REMOVE password fields before sending
     const payload = { ...formData };
     delete payload.password;
     delete payload.confirmPassword;
-    delete payload.referral;  delete payload.profilePic;
+    delete payload.referral;  delete payload.profilePic; delete payload.firebaseToken;
+
     console.log("FINAL PAYLOAD SENT:", payload);
   
     const res = await registerApi(payload);
     if(res?.status)
       {
+        setToken(res.data.accessToken, res.data.expiryTime);
+        setUser(res.data.user);
        toast.success("User registered successfully! ")
         setTimeout(()=>router.push("/"),2500)}
       }
