@@ -35,7 +35,14 @@ export default function ReferralPage() {
   const referralCode = profile?.referralCode || "";
 
 
-  if (loading) return <div className="p-10 text-center">Loading...</div>;
+  if (loading) return (  
+      <div className="text-center mt-20">
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#4a4bda] mx-auto mb-4"></div>
+    <p className="text-xl font-medium text-[#4a4bda] capitalize">
+        Loading ...
+    </p>
+</div>
+);
 
   return (
     <div className="w-full min-h-screen text-black">
