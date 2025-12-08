@@ -1,23 +1,22 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import Image from "next/image";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import useFirebaseAuth from "../../services/auth/useFirebaseAuth";
 import { toast } from "react-toastify";
 import Sidebar from "../../components/Sidebar";
-import { getToken,getUser } from "../../services/auth/userCookies";
-import { Loader } from "lucide-react";
+import useFirebaseAuth from "../../services/auth/useFirebaseAuth";
+import { getToken, getUser } from "../../services/auth/userCookies";
 
 export default function Layout({ children }) {
   const { logOut } = useFirebaseAuth();
   const router = useRouter();
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const toggleSidebar = () => setSidebarOpen((v) => !v);
-
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const dropdownRef = useRef(null);
+
+  const toggleSidebar = () => setSidebarOpen((v) => !v);
   const toggleDropdown = () => setIsDropdownOpen((o) => !o);
 
   const handleLogout = () => {
@@ -27,10 +26,10 @@ export default function Layout({ children }) {
         toast.success("Logging out..");
         router.push("/");
       })
-      .catch((error) => console.log(error));
+      .catch(console.log);
   };
 
- 
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -41,40 +40,28 @@ export default function Layout({ children }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  //  Auth check for all pages
+  // Auth check
   useEffect(() => {
     const token = getToken();
     const user = getUser();
 
     if (!token || !user) {
       toast.warning("Please login", { autoClose: 2500 });
-      setTimeout(() => {
-        router.push("/");
-      }, 2500);
+      setTimeout(() => router.push("/"), 2500);
     }
+
+    setMounted(true); 
   }, [router]);
 
- 
+  if (!mounted) return <div className="flex justify-center items-center h-screen"><span>Loading...</span></div>;
+
   const token = getToken();
   const user = getUser();
-  if (!token || !user) return null; // or a loader
-
-  const pageTitles = {
-    "/dashboard": "Home",
-    "/user-management": "Tasks",
-    "/adviser-management": "Calendar",
-    "/booking-management": "Journal",
-    "/fees-and-subscriptions": "Videos & Audios",
-    "/revenue-management": "Gratitude",
-    "/notification-management": "Vision board",
-    "/analytics-and-reports": "Ask Genie",
-    "/help-and-support": "Horoscope",
-    "/profile": "Profile",
-  };
+  if (!token || !user) return null;
 
   return (
     <div className="flex h-screen overflow-hidden text-black">
-      {/* Sidebar wrapper */}
+      {/* Sidebar */}
       <div
         className={`
           fixed inset-y-0 left-0 z-30 w-60 text-black
@@ -86,7 +73,7 @@ export default function Layout({ children }) {
         <Sidebar toggleSidebar={toggleSidebar} />
       </div>
 
-      {/* Backdrop for mobile */}
+      {/* Backdrop */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 z-20 bg-black opacity-50 md:hidden"
@@ -96,7 +83,6 @@ export default function Layout({ children }) {
 
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Navbar */}
         <header className="md:hidden flex items-center gap-4 p-4 bg-white shadow-md">
           <button onClick={toggleSidebar} className="md:hidden text-black">
             <svg width="28" height="28" fill="none">
@@ -110,7 +96,6 @@ export default function Layout({ children }) {
           <h1 className="text-lg font-semibold"></h1>
         </header>
 
-        {/* Page content */}
         <main className="flex-1 overflow-y-auto bg-bg text-black">
           {children}
         </main>
