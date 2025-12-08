@@ -33,12 +33,25 @@ export const responseValidator = async (response , isToaster=false, message=null
             return {status: res.status, message: res.message}
         }
     }
-    else if(response.status == 401){
-        toast.error("You are not logged in. Please login for accessing this section.",{
-            toastId:"API-error-session-expired"
-        })
-        return {status: false, code:401, message: "Session Expired."}
-    }
+
+    else if (response?.status === 401) {
+        const err = await response.json();
+      
+        toast.error("Session Expired. Please log in again.", {
+          toastId: "API-error-session-expired",
+        });
+      
+       
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 2500);
+      
+        return {
+          status: false,
+          code: 401,
+          message: err.message || "Session Expired.",
+        };
+      }
     else if(response.status == 413){
         toast.error("Media file which you attach is too large.",{
             toastId:"API-error-file-size-too-large"

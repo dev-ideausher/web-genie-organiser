@@ -20,6 +20,3 @@ d="M18.3307 19.25V17.4167C18.3307 16.4442 17.9444 15.5116 17.2568 14.8239C16.569
 }
 
 
-<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
-  <path  stroke="#787878" strokeWidth="1.83333" strokeLinecap="round" strokeLinejoin="round"/>
-</svg>

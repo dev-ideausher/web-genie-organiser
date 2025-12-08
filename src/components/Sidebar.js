@@ -14,6 +14,7 @@ import { AV } from "../../public/icons/AVIcon";
 import { GratitudeIcon } from "../../public/icons/GratitudeIcon";
 import { VisionBoardIcon } from "../../public/icons/VisionBoardIcon";
 import { removeToken, removeUser } from "../services/auth/userCookies";
+import ContactIcon from "../../public/icons/ContactIcon";
 
 export default function Sidebar({ toggleSidebar }) {
   const router = useRouter();
@@ -35,7 +36,8 @@ export default function Sidebar({ toggleSidebar }) {
     { name: "Vision Board", paths: ["/visionBoard"], icon: VisionBoardIcon},
     { name: "Ask Genie", paths: ["/ask-genie"], icon: AskGenie},
     { name: "Horoscope", paths: ["/horoscope"], icon: HoroscopeIcon },
-    { name: "Profile", paths: ["/profile"], icon: ProfileIcon },
+    { name: "Contacts", paths: ["/contacts"], icon: ContactIcon },
+    { name: "Profile", paths: ["/profile","/profileSetting","/notifications","/resetPassword","/subscription","/paymentMethods","/support","/refer","/review"], icon: ProfileIcon },
   ];
   
 
