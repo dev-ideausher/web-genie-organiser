@@ -63,7 +63,7 @@ export default function Sidebar({ toggleSidebar }) {
       key={name}
       href={paths[0]}
       onClick={() => window.innerWidth < 768 && toggleSidebar()}
-      className={`flex items-center gap-3 p-4 rounded-xl transition-colors font-medium ${
+      className={`flex items-center gap-3 p-4 rounded-xl transition-colors font-medium cursor-pointer ${
         isActive ? "bg-primaryDisabled text-secondaryText" : "hover:bg-primaryDisabled"
       }`}
     >
