@@ -24,7 +24,7 @@ export default function TasksPage() {
         <div className="bg-gray-100 p-1 rounded-[16px] flex gap-1">
           <button
             onClick={() => handleTabSwitch("tasks")}
-            className={`px-6 py-2 rounded-[12px] transition ${
+            className={`px-6 py-2 rounded-[12px] transition cursor-pointer ${
               currentTab === "tasks"
                 ? "bg-white shadow font-medium"
                 : "text-gray-500"
@@ -35,7 +35,7 @@ export default function TasksPage() {
 
           <button
             onClick={() => handleTabSwitch("activities")}
-            className={`px-6 py-2 rounded-[12px] transition ${
+            className={`px-6 py-2 rounded-[12px] transition cursor-pointer ${
               currentTab === "activities"
                 ? "bg-white shadow font-medium"
                 : "text-gray-500"

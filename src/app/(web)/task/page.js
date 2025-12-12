@@ -1,9 +1,10 @@
 import React, { Suspense } from 'react'
 import TasksPage from '../../../components/Tasks/TaskPage'
+import Loader from '../../../components/Loader'
 
 const page = () => {
   return (
-<Suspense fallback={<div>Loading...</div>}>
+<Suspense fallback={<Loader/>}>
       <TasksPage/>
     </Suspense>
   )
