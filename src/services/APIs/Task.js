@@ -42,7 +42,7 @@ export const addTask = async (data) => {
       return (error);
     }
   };
-  export const editTask = async (data) => {
+  export const editTask = async (data,id) => {
     const myHeaders = new Headers();
     const token = await getAuthToken(); 
     myHeaders.append("Content-Type", "application/json");
@@ -55,7 +55,7 @@ export const addTask = async (data) => {
     };
     try {
      
-      const response = await fetch(URL + `/tasks`, requestOptions);
+      const response = await fetch(URL + `/tasks/${id}`, requestOptions);
   
       return response.json();
     } catch (error) {
@@ -98,5 +98,24 @@ export const addTask = async (data) => {
       return response.json();
     } catch (error) {
       return (error);
+    }
+  };
+  export const getTaskByID = async (ID) => {
+    const myHeaders = new Headers();
+    const token = await getAuthToken(); 
+    //myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+    try {
+     
+      const response = await fetch(URL + `/tasks/${ID}`, requestOptions);
+  
+      return response.json();
+    } catch (error) {
+      apiError(error);
     }
   };
