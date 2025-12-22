@@ -1,19 +1,25 @@
 "use client";
 
-import { MoreVertical, ArrowRight, Plus } from "lucide-react";
+import { MoreVertical, ArrowRight, Plus, Pencil, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import AddAudioModal from "./AddAudioModal";
-import { getAudio ,deleteAudio, updateAudio} from "../../services/APIs/AudioVideoVoice";
+import {
+  getAudio,
+  deleteAudio,
+  updateAudio,
+} from "../../services/APIs/AudioVideoVoice";
 
-const fallbackImages = [
-  "/images/vb1.png",
-  "/images/vb2.png",
-];
+const fallbackImages = ["/images/vb1.png", "/images/vb2.png"];
 
 export default function AudioSection() {
   const [openModal, setOpenModal] = useState(false);
   const [playlists, setPlaylists] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const [openMenuId, setOpenMenuId] = useState(null);
+  const [renameId, setRenameId] = useState(null);
+  const [renameValue, setRenameValue] = useState("");
+  const [deleteId, setDeleteId] = useState(null);
 
   /* ---------------- FETCH AUDIO GROUPS ---------------- */
   const fetchAudios = async () => {
@@ -36,10 +42,32 @@ export default function AudioSection() {
     }
   };
 
-  /* ---------------- INITIAL LOAD ---------------- */
   useEffect(() => {
     fetchAudios();
   }, []);
+
+  /* ---------------- RENAME ---------------- */
+  const handleRename = async () => {
+    try {
+      await updateAudio(renameId, { title: renameValue });
+      setRenameId(null);
+      setRenameValue("");
+      fetchAudios();
+    } catch (err) {
+      console.error("Rename failed", err);
+    }
+  };
+
+  /* ---------------- DELETE ---------------- */
+  const handleDelete = async () => {
+    try {
+      await deleteAudio(deleteId);
+      setDeleteId(null);
+      fetchAudios();
+    } catch (err) {
+      console.error("Delete failed", err);
+    }
+  };
 
   return (
     <div className="p-8">
@@ -52,47 +80,69 @@ export default function AudioSection() {
           </p>
         </div>
 
-        {/* Add Audio Button */}
         <button
           onClick={() => setOpenModal(true)}
-          className="flex items-center gap-2 bg-[#5a5cff] text-white px-4 py-2 rounded-lg shadow-md hover:opacity-90"
+          className="flex items-center gap-2 bg-[#5a5cff] text-white px-4 py-2 rounded-lg shadow-md"
         >
           <Plus size={18} />
           Add Audio
         </button>
       </div>
 
-      {/* LOADING STATE */}
-      {loading && (
-        <div className="text-sm text-gray-500">Loading playlists...</div>
-      )}
-
-      {/* PLAYLIST GRID */}
+      {/* GRID */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {playlists.map((p) => (
           <div
             key={p.id}
-            className="relative h-48 rounded-2xl overflow-hidden shadow-md cursor-pointer group"
+            className="relative h-48 rounded-2xl overflow-hidden shadow-md group"
             style={{
               backgroundImage: `url(${p.image})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
           >
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-all"></div>
+            <div className="absolute inset-0 bg-black/20" />
 
-            {/* Menu */}
-            <button className="absolute top-3 right-3 text-white">
+            {/* MENU BUTTON */}
+            <button
+              onClick={() =>
+                setOpenMenuId(openMenuId === p.id ? null : p.id)
+              }
+              className="absolute top-3 right-3 text-white z-10"
+            >
               <MoreVertical size={18} />
             </button>
 
-            {/* Title */}
+            {/* DROPDOWN */}
+            {openMenuId === p.id && (
+              <div className="absolute top-10 right-3 bg-white rounded-lg shadow-lg w-40 z-20">
+                <button
+                  onClick={() => {
+                    setRenameId(p.id);
+                    setRenameValue(p.title);
+                    setOpenMenuId(null);
+                  }}
+                  className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100 w-full"
+                >
+                  <Pencil size={14} /> Rename
+                </button>
+                <button
+                  onClick={() => {
+                    setDeleteId(p.id);
+                    setOpenMenuId(null);
+                  }}
+                  className="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-gray-100 w-full"
+                >
+                  <Trash2 size={14} /> Delete Group
+                </button>
+              </div>
+            )}
+
+            {/* TITLE */}
             <div className="absolute left-4 bottom-4 text-white text-lg font-medium">
               {p.title}
             </div>
 
-            {/* Arrow */}
             <button className="absolute bottom-3 right-3 text-white">
               <ArrowRight size={20} />
             </button>
@@ -111,8 +161,52 @@ export default function AudioSection() {
       <AddAudioModal
         open={openModal}
         onClose={() => setOpenModal(false)}
-        onSuccess={fetchAudios} // refetch after create
+        onSuccess={fetchAudios}
       />
+
+      {/* RENAME MODAL */}
+      {renameId && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl p-6 w-96">
+            <h3 className="font-semibold mb-4">Rename Audio</h3>
+            <input
+              value={renameValue}
+              onChange={(e) => setRenameValue(e.target.value)}
+              className="w-full border rounded-lg px-3 py-2 mb-4"
+            />
+            <div className="flex justify-end gap-3">
+              <button onClick={() => setRenameId(null)}>Cancel</button>
+              <button
+                onClick={handleRename}
+                className="bg-indigo-600 text-white px-4 py-2 rounded-lg"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* DELETE CONFIRM */}
+      {deleteId && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl p-6 w-96">
+            <h3 className="font-semibold mb-3">Delete Audio</h3>
+            <p className="text-sm text-gray-500 mb-5">
+              Are you sure you want to delete this audio?
+            </p>
+            <div className="flex justify-end gap-3">
+              <button onClick={() => setDeleteId(null)}>Cancel</button>
+              <button
+                onClick={handleDelete}
+                className="bg-red-600 text-white px-4 py-2 rounded-lg"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
